@@ -1,12 +1,12 @@
 `timescale 1ns / 1ps
 
 module cbrt(
-    input [15:0] x_i,
+    input [7:0] x_i,
     input clk,
     input rst,
     input start,
 
-    output reg [15:0] result,
+    output reg [2:0] result,
     output reg busy,
     output[3:0] state_debug,
     output[3:0] state_next_debug,
@@ -36,7 +36,7 @@ module cbrt(
 
     mul mul2 (
         .a_i(sum_out[7:0]),
-        .b_i(result[7:0]),
+        .b_i({ 5'd0, result}),
         .start(start_mul),
         .clk(clk),
         .rst(rst_mul),
@@ -61,7 +61,7 @@ module cbrt(
     assign buff_debug = buff;
     assign buff_next_debug = buff_next;
     assign x_debug = x;
-    assign res_mul_debug = res_mul[7:0];
+    assign res_mul_debug = res_mul;
 
     always @(*) begin
         state_next = state;
@@ -83,7 +83,7 @@ module cbrt(
         rst_mul = (state == ST1);
         start_mul = (state == ST2);
         buff_next = (state == ST5) ? sum_out << s : sum_out;
-        result_next = (state == ST8) ? sum_out : result << 1;
+        result_next = (state == ST8) ? sum_out : { 13'd0, result} << 1;
         busy = (state != IDLE);
     end
 
@@ -103,8 +103,8 @@ module cbrt(
             end
 
             ST4: begin
-                sum_in_a = res_mul[7:0];
-                sum_in_b = res_mul[7:0] << 1;
+                sum_in_a = res_mul;
+                sum_in_b = res_mul << 1;
             end
 
             ST5: begin
@@ -142,20 +142,20 @@ module cbrt(
                 IDLE: begin
                     if (start) begin
                         s <= 9;
-                        x <= x_i;
+                        x <= {8'd0, x_i};
                     end
                 end
 
                 ST1: begin
                     s <= sum_out;
-                    result <= result_next;
+                    result <= result_next[2:0];
                 end
 
                 ST4, ST5, ST6, ST7: buff <= buff_next;
 
                 ST8: begin
                     x <= buff;
-                    result <= result_next;
+                    result <= result_next[2:0];
                 end
 
             endcase
