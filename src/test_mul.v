@@ -41,34 +41,10 @@ module test_bench;
         $dumpfile("wave.vcd");
         $dumpvars(0, test_bench);
 
-        rst = 1;
-        @(posedge clk);
-        rst = 0;
-        @(posedge clk);
         test(8'd3,   8'd2,  16'd6,  1); // 3 * 2 = 6
-
-        rst = 1;
-        @(posedge clk);
-        rst = 0;
-        @(posedge clk);
         test(8'd5,   8'd5,  16'd25,  2); // 5 * 5 = 25
-
-        rst = 1;
-        @(posedge clk);
-        rst = 0;
-        @(posedge clk);
         test(8'd4,   8'd3,  16'd12,  3); // 3 * 4 = 12
-
-        rst = 1;
-        @(posedge clk);
-        rst = 0;
-        @(posedge clk);
         test(8'd255,   8'd255,  16'd65025,  3); // 255 * 255 = 65025
-
-        rst = 1;
-        @(posedge clk);
-        rst = 0;
-        @(posedge clk);
         test(8'd255,   8'd0,  16'd65025,  3); // 255 * 0 = 0
 
         #10 $finish;
@@ -83,6 +59,12 @@ module test_bench;
         integer total_cycles;
         
         begin
+
+            rst = 1;
+            @(posedge clk);
+            rst = 0;
+            @(posedge clk);
+
             a = a_t;
             b = b_t;
             
