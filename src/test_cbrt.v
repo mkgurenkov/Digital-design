@@ -14,7 +14,7 @@ module test_bench;
     wire [15:0] sum_in_b_w;
     wire [15:0] sum_out_w;
 
-    cbrt cbrt_debug (
+    cbrt cbrt_dut (
         .x_i(x),
         .start(start),
         .clk(clk),
