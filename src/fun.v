@@ -12,7 +12,7 @@ module fun (
 );
 
     reg [1:0] state, state_next;
-    reg [7:0] a, b;
+    reg [7:0] a;
     
     reg [15:0] sum_in_a, sum_in_b;
     wire [15:0] sum_out;
@@ -25,7 +25,7 @@ module fun (
     wire [15:0] result_mul;
     
     cbrt my_cbrt (
-        .x_i(b),
+        .x_i(b_i),
         .start(start_cbrt),
         .clk(clk),
         .rst(rst_cbrt),
@@ -58,9 +58,8 @@ module fun (
     );
 
     localparam IDLE = 0;
-    localparam START_CBRT = 1;
-    localparam CBRT = 2;
-    localparam MUL = 3;
+    localparam CBRT = 1;
+    localparam MUL = 2;
 
     always @(*) begin
         busy = (state != IDLE);
@@ -72,12 +71,8 @@ module fun (
 
         case (state)
             IDLE: begin
-                state_next = (start) ? START_CBRT : IDLE;
-            end
-
-            START_CBRT: begin
-                start_cbrt = 1;
-                state_next = CBRT;
+                state_next = (start) ? CBRT : IDLE;
+                start_cbrt = (state_next == CBRT);
             end
 
             CBRT: begin
@@ -110,7 +105,6 @@ module fun (
                 IDLE: begin
                     if (start) begin
                         a <= a_i;
-                        b <= b_i;
                     end
                 end
 
