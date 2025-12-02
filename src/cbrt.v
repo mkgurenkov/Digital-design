@@ -7,7 +7,7 @@ module cbrt(
     input start,
 
     output reg [2:0] result,
-    output reg busy,
+    output reg busy
     );
 
     reg [15:0] x, s, buff, buff_next, result_next;
@@ -16,6 +16,8 @@ module cbrt(
     reg [15:0] sum_in_a, sum_in_b;
     wire [15:0] sum_out;
     
+    wire [15:0] sum_in_a_mul, sum_in_b_mul;
+
     sum2 my_sum2 (
         .a(sum_in_a),
         .b(sum_in_b),
@@ -36,7 +38,11 @@ module cbrt(
         .rst(rst_mul),
 
         .busy(busy_mul),
-        .result(res_mul)
+        .result(res_mul),
+
+        .sum_in_a(sum_in_a_mul),
+        .sum_in_b(sum_in_b_mul),
+        .sum_out(sum_out)
     );
 
     localparam IDLE = 0;
@@ -87,6 +93,11 @@ module cbrt(
             ST2: begin
                 sum_in_a = result;
                 sum_in_b = 1;
+            end
+
+            ST3: begin
+                sum_in_a = sum_in_a_mul;
+                sum_in_b = sum_in_b_mul;
             end
 
             ST4: begin
