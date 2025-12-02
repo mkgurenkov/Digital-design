@@ -15,10 +15,11 @@ module cbrt(
     input [15:0] sum_out
     );
 
-    reg [15:0] x, s, buff, buff_next, result_next;
+    reg [15:0] x, s, buff, buff_next;
+    reg [2:0] result_next;
     reg [3:0] state, state_next;
-    wire [15:0] sum_in_a_mul, sum_in_b_mul;
 
+    wire [15:0] sum_in_a_mul, sum_in_b_mul;
     reg start_mul;
     reg rst_mul;
     wire [15:0] res_mul;
@@ -70,7 +71,7 @@ module cbrt(
         rst_mul = (state == ST1);
         start_mul = (state == ST2);
         buff_next = (state == ST5) ? sum_out << s : sum_out;
-        result_next = (state == ST8) ? sum_out : { 13'd0, result} << 1;
+        result_next = (state == ST8) ? sum_out[2:0] : result << 1;
         busy = (state != IDLE);
     end
 
@@ -81,11 +82,11 @@ module cbrt(
         case (state)
             ST1: begin
                 sum_in_a = s;
-                sum_in_b = 16'hFFFD;
+                sum_in_b = 16'hFFFD; // -3
             end
 
             ST2: begin
-                sum_in_a = result;
+                sum_in_a = { 13'd0, result};
                 sum_in_b = 1;
             end
 
@@ -140,14 +141,14 @@ module cbrt(
 
                 ST1: begin
                     s <= sum_out;
-                    result <= result_next[2:0];
+                    result <= result_next;
                 end
 
                 ST4, ST5, ST6, ST7: buff <= buff_next;
 
                 ST8: begin
                     x <= buff;
-                    result <= result_next[2:0];
+                    result <= result_next;
                 end
 
             endcase
