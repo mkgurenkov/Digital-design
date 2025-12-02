@@ -65,30 +65,36 @@ module fun (
     localparam MUL = 2;
 
     always @(*) begin
+        state_next = state;
+        case (state)
+            IDLE: state_next = (start) ? CBRT : IDLE;
+            CBRT: state_next = (busy_cbrt) ? CBRT : MUL;
+            MUL: state_next = (busy_mul) ? MUL : IDLE;
+        endcase
+    end
+
+    always @(*) begin
         busy = (state != IDLE);
-        sum_in_a = 0;
-        sum_in_b = 0;
         start_cbrt = 0;
         start_mul = 0;
-        state_next = state;
-
         case (state)
-            IDLE: begin
-                state_next = (start) ? CBRT : IDLE;
-                start_cbrt = (state_next == CBRT);
-            end
+            IDLE: start_cbrt = (state_next == CBRT);
+            CBRT: start_mul = (state_next == MUL);
+        endcase
+    end
 
+    always @(*) begin
+        sum_in_a = 0;
+        sum_in_b = 0;
+        case (state)
             CBRT: begin
                 sum_in_a = sum_in_a_cbrt;
                 sum_in_b = sum_in_b_cbrt;
-                state_next = (busy_cbrt) ? CBRT : MUL;
-                start_mul = (state_next == MUL);
             end
 
             MUL: begin
                 sum_in_a = sum_in_a_mul;
                 sum_in_b = sum_in_b_mul;
-                state_next = (busy_mul) ? MUL : IDLE;
             end
         endcase
     end
