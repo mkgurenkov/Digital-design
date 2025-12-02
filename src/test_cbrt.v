@@ -16,7 +16,7 @@ module test_bench;
         .clk(clk),
         .rst(rst),
         .result(result),
-        .busy(busy),
+        .busy(busy)
     );
 
     // Clock period = 10ns (100 MHz)
