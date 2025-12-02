@@ -114,12 +114,6 @@ module fun (
                     end
                 end
 
-                CBRT: begin
-                    if (state_next == IDLE) begin
-                        result <= {8'd0, result_cbrt};
-                    end
-                end
-
                 MUL: begin
                     if (state_next == IDLE) begin
                         result <= result_mul[10:0];
