@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+`include "src/mul.v"
 
 module cbrt(
     input [7:0] x_i,
@@ -7,23 +8,16 @@ module cbrt(
     input start,
 
     output reg [2:0] result,
-    output reg busy
+    output reg busy,
+
+    output reg [15:0] sum_in_a,
+    output reg [15:0] sum_in_b,
+    input [15:0] sum_out
     );
 
     reg [15:0] x, s, buff, buff_next, result_next;
     reg [3:0] state, state_next;
-
-    reg [15:0] sum_in_a, sum_in_b;
-    wire [15:0] sum_out;
-    
     wire [15:0] sum_in_a_mul, sum_in_b_mul;
-
-    sum2 my_sum2 (
-        .a(sum_in_a),
-        .b(sum_in_b),
-
-        .result(sum_out)
-    );
 
     reg start_mul;
     reg rst_mul;
@@ -159,14 +153,4 @@ module cbrt(
             endcase
         end
     end
-endmodule
-
-module sum2(
-    input [15:0] a,
-    input [15:0] b,
-    output [15:0] result
-);
-
-    assign result = a + b;
-
 endmodule

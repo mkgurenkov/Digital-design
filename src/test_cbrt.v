@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 `include "src/cbrt.v"
-`include "src/mul.v"
+`include "src/sum.v"
 
 module test_bench;
     reg clk = 0;
@@ -10,13 +10,27 @@ module test_bench;
     wire [2:0] result;
     wire busy;
 
+    wire [15:0] sum_in_a_w;
+    wire [15:0] sum_in_b_w;
+    wire [15:0] sum_out_w;
+
     cbrt cbrt_debug (
         .x_i(x),
         .start(start),
         .clk(clk),
         .rst(rst),
         .result(result),
-        .busy(busy)
+        .busy(busy),
+
+        .sum_in_a(sum_in_a_w),
+        .sum_in_b(sum_in_b_w),
+        .sum_out(sum_out_w)
+    );
+
+    sum sum_dut (
+        .a(sum_in_a_w),
+        .b(sum_in_b_w),
+        .result(sum_out_w)
     );
 
     // Clock period = 10ns (100 MHz)
