@@ -1,4 +1,7 @@
+`ifndef FUN
+`define FUN
 `include "src/cbrt.v"
+`include "src/mul.v"
 `include "src/sum.v"
 
 module fun (
@@ -117,3 +120,4 @@ module fun (
         end
     end
 endmodule
+`endif

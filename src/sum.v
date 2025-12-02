@@ -1,3 +1,6 @@
+`ifndef SUM
+`define SUM
+
 module sum(
     input [15:0] a,
     input [15:0] b,
@@ -6,3 +9,4 @@ module sum(
 
     assign result = a + b;
 endmodule
+`endif

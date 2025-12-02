@@ -1,4 +1,5 @@
-`timescale 1ns / 1ps
+`ifndef MUL
+`define MUL
 
 module mul(
     input [7:0] a_i,
@@ -72,3 +73,4 @@ module mul(
         end
     end
 endmodule
+`endif

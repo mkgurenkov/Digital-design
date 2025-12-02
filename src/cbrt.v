@@ -1,4 +1,5 @@
-`timescale 1ns / 1ps
+`ifndef CBRT
+`define CBRT
 `include "src/mul.v"
 
 module cbrt(
@@ -155,3 +156,4 @@ module cbrt(
         end
     end
 endmodule
+`endif
