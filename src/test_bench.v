@@ -60,13 +60,15 @@ module test_bench;
             
             start = 1;
             @(posedge clk);
+            #1;
             start = 0;
-            @(posedge clk);
+            
             total_cycles = 0;
             
             while (busy && total_cycles < MAX_WAIT_CYCLES) begin
-                @(posedge clk);
                 total_cycles = total_cycles + 1;
+                @(posedge clk);
+                #1;
             end
 
             if (!busy) begin                
