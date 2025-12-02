@@ -2,7 +2,7 @@
 `include "src/cbrt.v"
 `include "src/sum.v"
 
-module test_bench;
+module test_cbrt;
     reg clk = 0;
     reg rst = 1;
     reg start = 0;
@@ -38,7 +38,7 @@ module test_bench;
 
     initial begin
         $dumpfile("wave.vcd");
-        $dumpvars(0, test_bench);
+        $dumpvars(0, test_cbrt);
 
         test(8'd1, 3'd1, 1); // ∛1 = 1
         test(8'd8, 3'd2, 2); // ∛8 = 2

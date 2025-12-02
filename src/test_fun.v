@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `include "src/fun.v"
 
-module test_bench;
+module test_fun;
     reg clk = 0;
     reg rst = 1;
     reg start = 0;
@@ -24,7 +24,7 @@ module test_bench;
 
     initial begin
         $dumpfile("wave.vcd");
-        $dumpvars(0, test_bench);
+        $dumpvars(0, test_fun);
 
         test(8'd5, 8'd27, 11'd15,  1);
         test(8'd3, 8'd64, 11'd12,  2);

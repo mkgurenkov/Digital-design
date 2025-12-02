@@ -2,7 +2,7 @@
 `include "src/mul.v"
 `include "src/sum.v"
 
-module test_bench;
+module test_mul;
     reg clk = 0;
     reg rst = 1;
     reg start = 0;
@@ -39,7 +39,7 @@ module test_bench;
 
     initial begin
         $dumpfile("wave.vcd");
-        $dumpvars(0, test_bench);
+        $dumpvars(0, test_mul);
 
         test(8'd3,   8'd2,  16'd6,  1); // 3 * 2 = 6
         test(8'd5,   8'd5,  16'd25,  2); // 5 * 5 = 25
