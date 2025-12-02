@@ -70,9 +70,9 @@ module test_bench;
             end
 
             if (!busy) begin                
-                $display("Test %2d: %3d * ∛%-3d = %-5d (exp %-5d) | cycles: %2d", 
+                $display("Test %2d: %3d * ∛%-3d = %-5d (exp %-5d) | cycles: %2d, time: %3dns", 
                          num, a, b, result, expected, 
-                         total_cycles);
+                         total_cycles, total_cycles * 10);
             end else begin
                 $display("TIMEOUT in test %0d", num);
             end
