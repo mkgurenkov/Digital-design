@@ -8,12 +8,6 @@ module cbrt(
 
     output reg [2:0] result,
     output reg busy,
-    output[3:0] state_debug,
-    output[3:0] state_next_debug,
-    output[15:0] buff_debug,
-    output[15:0] buff_next_debug,
-    output[15:0] x_debug,
-    output[15:0] res_mul_debug
     );
 
     reg [15:0] x, s, buff, buff_next, result_next;
@@ -55,13 +49,6 @@ module cbrt(
     localparam ST7 = 7;
     localparam ST8 = 8;
     localparam ST9 = 9;
-
-    assign state_next_debug = state_next;
-    assign state_debug = state;
-    assign buff_debug = buff;
-    assign buff_next_debug = buff_next;
-    assign x_debug = x;
-    assign res_mul_debug = res_mul;
 
     always @(*) begin
         state_next = state;
