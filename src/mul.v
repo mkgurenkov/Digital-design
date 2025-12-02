@@ -18,7 +18,6 @@ module mul(
     reg [2:0] ctr;
     reg [1:0] state, state_next;
     reg [7:0] a, b;
-    // assign busy = ctr != 7 && state != IDLE;
 
     localparam IDLE = 0;
     localparam SUM = 1;
