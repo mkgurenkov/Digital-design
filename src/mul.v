@@ -8,7 +8,11 @@ module mul(
     input rst,
 
     output reg busy,
-    output reg [15:0] result
+    output reg [15:0] result,
+
+    output reg [15:0] sum_in_a,
+    output reg [15:0] sum_in_b,
+    input [15:0] sum_out
     );
  
     reg [2:0] ctr;
@@ -19,16 +23,6 @@ module mul(
     localparam IDLE = 0;
     localparam SUM = 1;
     localparam INC = 2;
-
-    reg [15:0] sum_in_a, sum_in_b;
-    wire [15:0] sum_out;
-
-    sum my_sum (
-        .a(sum_in_a),
-        .b(sum_in_b),
-        .result(sum_out)
-    );
-
 
     always @(*) begin
         busy = (state != IDLE);
