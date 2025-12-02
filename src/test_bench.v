@@ -26,9 +26,9 @@ module test_bench;
         $dumpfile("wave.vcd");
         $dumpvars(0, test_bench);
 
-        test(8'd5, 8'd27, 10'd15,  1); // 5 * cb
-        test(8'd3, 8'd64, 10'd12,  2);
-        test(8'd9,   8'd125,  10'd45,  3);
+        test(8'd5, 8'd27, 11'd15,  1); // 5 * cb
+        test(8'd3, 8'd64, 11'd12,  2);
+        test(8'd9,   8'd125,  11'd45,  3);
 
         #10 $finish;
     end
