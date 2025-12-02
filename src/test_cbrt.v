@@ -98,7 +98,7 @@ module test_bench;
             end
 
             if (!busy) begin
-                $display("Test %d: %d^1/3 = %d (exp %d) | cycles: %d", 
+                $display("Test %2d: ∛%-3d = %-5d (exp %-5d) | cycles: %2d", 
                          num, x, result, expected, 
                          total_cycles);
             end else begin

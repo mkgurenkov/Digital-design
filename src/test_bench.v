@@ -30,7 +30,7 @@ module test_bench;
         @(posedge clk);
         rst = 0;
         @(posedge clk);
-        test(8'd5, 8'd27, 10'd15,  1);
+        test(8'd5, 8'd27, 10'd15,  1); // 5 * cb
 
         rst = 1;
         @(posedge clk);
@@ -71,7 +71,7 @@ module test_bench;
             end
 
             if (!busy) begin                
-                $display("Test %d: %d * %d = %d (exp %d) | cycles: %d", 
+                $display("Test %2d: %3d * ∛%-3d = %-5d (exp %-5d) | cycles: %2d", 
                          num, a, b, result, expected, 
                          total_cycles);
             end else begin
