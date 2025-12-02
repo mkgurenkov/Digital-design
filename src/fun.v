@@ -1,6 +1,6 @@
 `include "src/cubroot.v"
 `include "src/multiply.v"
-module cubroot_add_system (
+module fun (
     input clk_i,
     input rst_i,
     input start_i,
