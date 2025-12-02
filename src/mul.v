@@ -62,8 +62,10 @@ module mul(
             state <= state_next;
             case (state)
                 IDLE: begin
-                    a <= a_i;
-                    b <= b_i;
+                    if (start) begin
+                        a <= a_i;
+                        b <= b_i;
+                    end
                 end
 
                 INC: begin
