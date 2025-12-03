@@ -20,7 +20,7 @@ module fun (
     reg [15:0] sum_in_a, sum_in_b;
     wire [15:0] sum_out;
 
-    reg rst_cbrt, rst_mul, start_cbrt, start_mul;
+    reg start_cbrt, start_mul;
     wire busy_cbrt, busy_mul;
 
     wire [15:0] sum_in_a_cbrt, sum_in_b_cbrt, sum_in_a_mul, sum_in_b_mul;
@@ -31,7 +31,7 @@ module fun (
         .x_i(b_i),
         .start(start_cbrt),
         .clk(clk),
-        .rst(rst_cbrt),
+        .rst(rst),
         .result(result_cbrt),
         .busy(busy_cbrt),
 
@@ -51,7 +51,7 @@ module fun (
         .b_i({5'd0, result_cbrt}),
         .start(start_mul),
         .clk(clk),
-        .rst(rst_mul),
+        .rst(rst),
         .result(result_mul),
         .busy(busy_mul),
 
@@ -103,11 +103,7 @@ module fun (
         if (rst) begin
             state <= IDLE;
             result <= 0;
-            rst_cbrt <= 1;
-            rst_mul <= 1;
         end else begin
-            rst_cbrt <= 0;
-            rst_mul <= 0;
             state <= state_next;
 
             case (state)
