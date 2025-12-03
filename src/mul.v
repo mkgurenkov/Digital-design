@@ -52,6 +52,8 @@ module mul(
             state <= IDLE;
             result <= 0;
             ctr <= 0;
+            a <= 0;
+            b <= 0;
         end else begin
             state <= state_next;
             case (state)
